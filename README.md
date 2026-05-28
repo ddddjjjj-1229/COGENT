@@ -2,7 +2,7 @@
 
 COGENT is an evidence-driven adaptive tutoring system for goal-oriented learning. It refines learner goals, verifies self-reported skills, builds goal-specific learner profiles, schedules adaptive learning paths, generates personalized study documents, and updates future sessions with mastery evidence.
 
-This repository provides the implementation of the COGENT web prototype. It is intended to support inspection of the system architecture and local execution of the tutoring workflow. It does not include the experimental evaluation scripts or full study datasets used in the accompanying paper.
+This repository provides the implementation of the COGENT web prototype together with a lightweight evaluation protocol package. It is intended to support inspection of the system architecture, local execution of the tutoring workflow, and review of the benchmark inputs, scoring logic, and aggregate paper tables. The full raw resume dataset and local runtime outputs are not included.
 
 ## What COGENT Adds
 
@@ -17,6 +17,7 @@ This repository provides the implementation of the COGENT web prototype. It is i
 ```text
 backend/                  FastAPI service and LLM agents
 frontend/                 Streamlit learner interface
+evaluation/               Evaluation protocol, scoring scripts, processed cases, and paper tables
 resources/                Representative screenshots and framework figures
 scripts/                  COGENT Windows service launchers
 launch_cogent.cmd         One-click local launcher
@@ -98,6 +99,7 @@ Local learner state is written to `frontend/user_data/` and is intentionally ign
 
 - Backend details: [backend/README.md](backend/README.md)
 - Frontend details: [frontend/README.md](frontend/README.md)
+- Evaluation protocol: [evaluation/README.md](evaluation/README.md)
 
 ## Deployment Notes
 

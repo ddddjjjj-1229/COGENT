@@ -1,0 +1,242 @@
+[
+    {
+        "id":  "target_data_mining_specialist",
+        "title":  "Data Mining Specialist",
+        "category":  "Data Mining",
+        "description":  "Discover useful patterns, predictive signals, and actionable insights from structured and semi-structured datasets.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "statistics",
+                                "data preprocessing",
+                                "feature engineering",
+                                "classification",
+                                "clustering",
+                                "association rule mining",
+                                "model evaluation",
+                                "data visualization"
+                            ],
+        "prerequisite_skills":  [
+                                    "probability",
+                                    "linear algebra",
+                                    "database fundamentals",
+                                    "data analysis"
+                                ]
+    },
+    {
+        "id":  "target_customer_segmentation_analyst",
+        "title":  "Customer Segmentation Analyst",
+        "category":  "Data Mining",
+        "description":  "Use clustering and behavioral analytics to segment customers and explain business-relevant patterns.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "clustering",
+                                "K-means",
+                                "hierarchical clustering",
+                                "feature scaling",
+                                "customer analytics",
+                                "data visualization",
+                                "cluster evaluation",
+                                "business interpretation"
+                            ],
+        "prerequisite_skills":  [
+                                    "statistics",
+                                    "data preprocessing",
+                                    "exploratory data analysis",
+                                    "business metrics"
+                                ]
+    },
+    {
+        "id":  "target_predictive_modeling_analyst",
+        "title":  "Predictive Modeling Analyst",
+        "category":  "Data Mining",
+        "description":  "Build and evaluate predictive models for classification and regression problems using historical data.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "supervised learning",
+                                "classification",
+                                "regression",
+                                "feature selection",
+                                "cross validation",
+                                "model evaluation",
+                                "Scikit-learn",
+                                "error analysis"
+                            ],
+        "prerequisite_skills":  [
+                                    "statistics",
+                                    "probability",
+                                    "data preprocessing",
+                                    "linear algebra"
+                                ]
+    },
+    {
+        "id":  "target_market_basket_analysis_specialist",
+        "title":  "Market Basket Analysis Specialist",
+        "category":  "Data Mining",
+        "description":  "Mine transaction data to discover item associations and translate association rules into product or marketing decisions.",
+        "required_skills":  [
+                                "SQL",
+                                "Python",
+                                "transaction data modeling",
+                                "association rule mining",
+                                "Apriori algorithm",
+                                "support",
+                                "confidence",
+                                "lift",
+                                "rule pruning",
+                                "business interpretation"
+                            ],
+        "prerequisite_skills":  [
+                                    "data preprocessing",
+                                    "probability",
+                                    "basic statistics",
+                                    "retail analytics"
+                                ]
+    },
+    {
+        "id":  "target_fraud_detection_analyst",
+        "title":  "Fraud Detection Analyst",
+        "category":  "Data Mining",
+        "description":  "Detect suspicious behavior and high-risk transactions using anomaly detection and imbalanced classification methods.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "anomaly detection",
+                                "imbalanced classification",
+                                "precision and recall",
+                                "feature engineering",
+                                "risk scoring",
+                                "model evaluation",
+                                "threshold tuning",
+                                "explainable AI"
+                            ],
+        "prerequisite_skills":  [
+                                    "statistics",
+                                    "classification",
+                                    "data preprocessing",
+                                    "domain analysis"
+                                ]
+    },
+    {
+        "id":  "target_recommendation_systems_analyst",
+        "title":  "Recommendation Systems Analyst",
+        "category":  "Data Mining",
+        "description":  "Analyze user-item behavior and design recommendation models that surface relevant content, products, or resources.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "collaborative filtering",
+                                "content-based recommendation",
+                                "matrix factorization",
+                                "ranking metrics",
+                                "implicit feedback",
+                                "feature engineering",
+                                "A/B testing",
+                                "model evaluation"
+                            ],
+        "prerequisite_skills":  [
+                                    "linear algebra",
+                                    "data preprocessing",
+                                    "similarity measures",
+                                    "statistics"
+                                ]
+    },
+    {
+        "id":  "target_text_mining_analyst",
+        "title":  "Text Mining Analyst",
+        "category":  "Data Mining",
+        "description":  "Extract patterns, topics, and predictive signals from unstructured text collections.",
+        "required_skills":  [
+                                "Python",
+                                "NLP preprocessing",
+                                "tokenization",
+                                "TF-IDF",
+                                "text classification",
+                                "topic modeling",
+                                "sentiment analysis",
+                                "feature extraction",
+                                "model evaluation",
+                                "data visualization"
+                            ],
+        "prerequisite_skills":  [
+                                    "statistics",
+                                    "machine learning basics",
+                                    "Python programming",
+                                    "data cleaning"
+                                ]
+    },
+    {
+        "id":  "target_feature_engineering_specialist",
+        "title":  "Data Preprocessing and Feature Engineering Specialist",
+        "category":  "Data Mining",
+        "description":  "Prepare raw datasets for mining and modeling through cleaning, transformation, encoding, and feature construction.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "data cleaning",
+                                "missing value handling",
+                                "outlier detection",
+                                "encoding categorical variables",
+                                "feature scaling",
+                                "feature construction",
+                                "pipeline design",
+                                "data validation"
+                            ],
+        "prerequisite_skills":  [
+                                    "data analysis",
+                                    "statistics",
+                                    "database fundamentals",
+                                    "Python programming"
+                                ]
+    },
+    {
+        "id":  "target_business_intelligence_mining_analyst",
+        "title":  "Business Intelligence Mining Analyst",
+        "category":  "Data Mining",
+        "description":  "Mine business datasets to identify trends, explain KPI movement, and support strategic decisions.",
+        "required_skills":  [
+                                "SQL",
+                                "Python",
+                                "business analytics",
+                                "KPI analysis",
+                                "pattern discovery",
+                                "dashboarding",
+                                "data visualization",
+                                "segmentation",
+                                "trend analysis",
+                                "stakeholder communication"
+                            ],
+        "prerequisite_skills":  [
+                                    "data analysis",
+                                    "statistics",
+                                    "business metrics",
+                                    "reporting"
+                                ]
+    },
+    {
+        "id":  "target_social_media_mining_analyst",
+        "title":  "Social Media Mining Analyst",
+        "category":  "Data Mining",
+        "description":  "Analyze social media and behavioral data to discover trends, communities, sentiment, and influence patterns.",
+        "required_skills":  [
+                                "Python",
+                                "social media analytics",
+                                "sentiment analysis",
+                                "trend detection",
+                                "network analysis",
+                                "text mining",
+                                "community detection",
+                                "data preprocessing",
+                                "visualization",
+                                "ethical data handling"
+                            ],
+        "prerequisite_skills":  [
+                                    "statistics",
+                                    "NLP basics",
+                                    "graph fundamentals",
+                                    "data cleaning"
+                                ]
+    }
+]
