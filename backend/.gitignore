@@ -1,0 +1,5 @@
+# Backend-local ignores. The repository root .gitignore contains the full list.
+__pycache__/
+*.py[cod]
+.env
+data/

@@ -1,0 +1,31 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="icon-bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(43 35) rotate(50) scale(105)">
+      <stop stop-color="#314B4E"/>
+      <stop offset="0.62" stop-color="#181510"/>
+      <stop offset="1" stop-color="#12100D"/>
+    </radialGradient>
+    <linearGradient id="icon-signal" x1="30" y1="91" x2="93" y2="26" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A7C8CF"/>
+      <stop offset="0.5" stop-color="#F3D28B"/>
+      <stop offset="1" stop-color="#F7F1E6"/>
+    </linearGradient>
+    <filter id="icon-glow" x="10" y="10" width="108" height="108" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3.4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.65 0 0 0 0 0.78 0 0 0 0 0.81 0 0 0 0.38 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="28" fill="url(#icon-bg)"/>
+  <rect x="6.5" y="6.5" width="115" height="115" rx="27.5" stroke="#3D382E"/>
+  <g filter="url(#icon-glow)">
+    <path d="M92 40C82.8 28.4 66.8 23.6 52.2 27.4C33.8 32.3 22.7 50.8 27.6 69.2C32.5 88 51.7 99.2 70.4 94C81.2 91 89.6 83.7 93.8 74" stroke="url(#icon-signal)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M41 74C49.6 63.2 59.9 55.1 72.6 48.7C79.5 45.2 87 43 94.8 41.5" stroke="#F3D28B" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M72.6 48.7L101 25.4" stroke="#A7C8CF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="41" cy="74" r="5.6" fill="#F7F1E6"/>
+    <circle cx="72.6" cy="48.7" r="4.5" fill="#F3D28B"/>
+    <circle cx="101" cy="25.4" r="5.4" fill="#A7C8CF"/>
+    <circle cx="57.5" cy="64" r="15.4" fill="#181510" stroke="#F7F1E6" stroke-width="3.4"/>
+    <circle cx="57.5" cy="64" r="4.2" fill="#F3D28B"/>
+  </g>
+</svg>

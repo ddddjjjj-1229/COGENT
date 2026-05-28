@@ -1,0 +1,49 @@
+{
+  "learning_approach_assessment": {
+    "assessment_purpose": "Assess the learner's preferred learning approach before instruction begins.",
+    "questions": [
+      {
+        "question": "When you begin studying a new concept related to your goal, what are you most likely to do first?",
+        "scenario_focus": "Starting a new concept",
+        "options": [
+          {
+            "label": "A",
+            "text": "I try to understand the idea, connect it to what I already know, and ask myself why it works.",
+            "maps_to": "deep"
+          },
+          {
+            "label": "B",
+            "text": "I focus on remembering the definition and the example exactly as presented.",
+            "maps_to": "surface"
+          },
+          {
+            "label": "C",
+            "text": "I look for the fastest way to cover what will most likely be tested or required.",
+            "maps_to": "achieving"
+          }
+        ]
+      },
+      {
+        "question": "If an exercise is difficult, which response is most like you?",
+        "scenario_focus": "Responding to difficulty",
+        "options": [
+          {
+            "label": "A",
+            "text": "I compare different ways to think about it and try to understand the reasoning behind the solution.",
+            "maps_to": "deep"
+          },
+          {
+            "label": "B",
+            "text": "I try to memorize the worked example so I can repeat it later.",
+            "maps_to": "surface"
+          },
+          {
+            "label": "C",
+            "text": "I focus on the method most likely to help me complete similar tasks efficiently.",
+            "maps_to": "achieving"
+          }
+        ]
+      }
+    ]
+  }
+}

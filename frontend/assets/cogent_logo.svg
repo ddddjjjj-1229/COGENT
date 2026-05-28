@@ -1,0 +1,38 @@
+<svg width="720" height="180" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="lockup-bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(60 46) rotate(50) scale(112)">
+      <stop stop-color="#314B4E"/>
+      <stop offset="0.62" stop-color="#181510"/>
+      <stop offset="1" stop-color="#12100D"/>
+    </radialGradient>
+    <linearGradient id="lockup-signal" x1="42" y1="128" x2="131" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A7C8CF"/>
+      <stop offset="0.5" stop-color="#F3D28B"/>
+      <stop offset="1" stop-color="#F7F1E6"/>
+    </linearGradient>
+    <linearGradient id="lockup-word" x1="190" y1="58" x2="566" y2="126" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1F1D18"/>
+      <stop offset="1" stop-color="#274E47"/>
+    </linearGradient>
+    <filter id="lockup-glow" x="12" y="12" width="150" height="150" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.65 0 0 0 0 0.78 0 0 0 0 0.81 0 0 0 0.35 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g filter="url(#lockup-glow)">
+    <rect x="24" y="24" width="132" height="132" rx="32" fill="url(#lockup-bg)"/>
+    <rect x="24.5" y="24.5" width="131" height="131" rx="31.5" stroke="#3D382E"/>
+    <path d="M120 65C107.3 48.9 85.2 42.3 65.1 47.6C39.7 54.3 24.5 79.9 31.2 105.3C38 131.3 64.5 146.7 90.3 139.6C105.2 135.5 116.8 125.4 122.6 112" stroke="url(#lockup-signal)" stroke-width="12" stroke-linecap="round"/>
+    <path d="M49.6 112C61.5 97.1 75.7 85.9 93.3 77.1C102.8 72.3 113.2 69.3 124 67.2" stroke="#F3D28B" stroke-width="5.2" stroke-linecap="round"/>
+    <path d="M93.3 77.1L132.5 45" stroke="#A7C8CF" stroke-width="4.8" stroke-linecap="round"/>
+    <circle cx="49.6" cy="112" r="6.6" fill="#F7F1E6"/>
+    <circle cx="93.3" cy="77.1" r="5.2" fill="#F3D28B"/>
+    <circle cx="132.5" cy="45" r="6.3" fill="#A7C8CF"/>
+    <circle cx="72.3" cy="90" r="18" fill="#181510" stroke="#F7F1E6" stroke-width="4"/>
+    <circle cx="72.3" cy="90" r="5" fill="#F3D28B"/>
+  </g>
+  <rect x="184" y="47" width="7" height="86" rx="3.5" fill="#F3D28B"/>
+  <text x="214" y="101" fill="url(#lockup-word)" font-family="Bahnschrift, Avenir Next, Helvetica, Arial, sans-serif" font-size="62" font-weight="700" letter-spacing="8">COGENT</text>
+  <text x="218" y="132" fill="#6E675D" font-family="Bahnschrift, Avenir Next, Helvetica, Arial, sans-serif" font-size="15" font-weight="500" letter-spacing="4">ADAPTIVE LEARNING INTELLIGENCE</text>
+</svg>

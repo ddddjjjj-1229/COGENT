@@ -1,0 +1,59 @@
+<svg width="1800" height="1000" viewBox="0 0 1800 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(640 460) rotate(48) scale(820 520)">
+      <stop stop-color="#43696E" stop-opacity="0.32"/>
+      <stop offset="0.46" stop-color="#2B2A22" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#12100D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mark-gradient" x1="271" y1="655" x2="586" y2="329" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A7C8CF"/>
+      <stop offset="0.5" stop-color="#F3D28B"/>
+      <stop offset="1" stop-color="#F7F1E6"/>
+    </linearGradient>
+    <linearGradient id="word-gradient" x1="650" y1="386" x2="1278" y2="584" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F1E6"/>
+      <stop offset="1" stop-color="#A7C8CF"/>
+    </linearGradient>
+    <filter id="logo-glow" x="210" y="230" width="480" height="480" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="16" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.65 0 0 0 0 0.78 0 0 0 0 0.81 0 0 0 0.34 0"/>
+      <feBlend in2="BackgroundImageFix" mode="normal" result="effect"/>
+      <feBlend in="SourceGraphic" in2="effect" mode="normal"/>
+    </filter>
+    <pattern id="grid" width="90" height="90" patternUnits="userSpaceOnUse">
+      <path d="M90 0H0V90" stroke="#24211A" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1800" height="1000" fill="#12100D"/>
+  <rect width="1800" height="1000" fill="url(#bg-glow)"/>
+  <rect x="100" y="80" width="1600" height="840" fill="url(#grid)" opacity="0.48"/>
+  <rect x="150" y="150" width="1500" height="700" rx="42" fill="#181510" stroke="#332D22" stroke-width="2"/>
+
+  <text x="205" y="225" fill="#756F63" font-family="Bahnschrift, Avenir Next, Helvetica, Arial, sans-serif" font-size="24" letter-spacing="3">COGENT / PRIMARY LOCKUP</text>
+
+  <g filter="url(#logo-glow)">
+    <path d="M585 391C544 339 472 317 407 334C323 356 273 440 295 524C318 609 405 660 490 636C539 622 577 589 596 545" stroke="url(#mark-gradient)" stroke-width="30" stroke-linecap="round"/>
+    <path d="M355 545C393 497 439 461 496 432C527 416 561 406 596 399" stroke="#F3D28B" stroke-width="11" stroke-linecap="round"/>
+    <path d="M496 432L632 320" stroke="#A7C8CF" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="355" cy="545" r="18" fill="#F7F1E6"/>
+    <circle cx="496" cy="432" r="14" fill="#F3D28B"/>
+    <circle cx="632" cy="320" r="18" fill="#A7C8CF"/>
+    <circle cx="430" cy="500" r="45" fill="#181510" stroke="#F7F1E6" stroke-width="8"/>
+    <circle cx="430" cy="500" r="13" fill="#F3D28B"/>
+  </g>
+
+  <rect x="595" y="350" width="12" height="300" rx="6" fill="#F3D28B"/>
+  <text x="650" y="505" fill="url(#word-gradient)" font-family="Bahnschrift, Avenir Next, Helvetica, Arial, sans-serif" font-size="154" font-weight="700" letter-spacing="16">COGENT</text>
+  <text x="658" y="596" fill="#A7C8CF" font-family="Bahnschrift, Avenir Next, Helvetica, Arial, sans-serif" font-size="34" letter-spacing="7">ADAPTIVE LEARNING INTELLIGENCE</text>
+  <text x="658" y="664" fill="#8F9997" font-family="Bahnschrift, Avenir Next, Helvetica, Arial, sans-serif" font-size="24" letter-spacing="1.5">Goal-specific pathways. Evidence-calibrated profiles.</text>
+
+  <g transform="translate(205 755)">
+    <rect width="40" height="40" rx="8" fill="#F7F1E6"/>
+    <rect x="58" width="40" height="40" rx="8" fill="#F3D28B"/>
+    <rect x="116" width="40" height="40" rx="8" fill="#A7C8CF"/>
+    <rect x="174" width="40" height="40" rx="8" fill="#181510" stroke="#332D22"/>
+  </g>
+  <text x="1285" y="780" fill="#756F63" font-family="Bahnschrift, Avenir Next, Helvetica, Arial, sans-serif" font-size="24" letter-spacing="2">Cognitive path + learner node</text>
+</svg>

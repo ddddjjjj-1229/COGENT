@@ -1,0 +1,149 @@
+{
+    "skill_gaps": [
+        {
+            "name": "Goal Setting",
+            "is_gap": true,
+            "required_level": "intermediate",
+            "current_level": "unlearned",
+            "reason": "No evidence of goal-setting skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": false,
+            "requires_diagnostic_assessment": false,
+            "assessment_reason": null,
+            "diagnostic_assessment": null
+        },
+        {
+            "name": "Self-assessment",
+            "is_gap": true,
+            "required_level": "intermediate",
+            "current_level": "unlearned",
+            "reason": "No evidence of self-assessment skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": true,
+            "requires_diagnostic_assessment": true,
+            "assessment_reason": "Learner says they practiced reflection, but depth is unclear.",
+            "diagnostic_assessment": {
+                "skill_name": "Self-assessment",
+                "question_sets": [
+                    {
+                        "level": "beginner",
+                        "questions": [
+                            {
+                                "question": "What does self-assessment mean in a learning process?",
+                                "expected_answer": "It means evaluating your own strengths, weaknesses, and progress.",
+                                "assessment_focus": "Basic concept understanding"
+                            },
+                            {
+                                "question": "Name two things a learner should check when reviewing their own work.",
+                                "expected_answer": "Accuracy, completeness, understanding, mistakes, or goal alignment.",
+                                "assessment_focus": "Foundational reflection criteria"
+                            }
+                        ]
+                    },
+                    {
+                        "level": "intermediate",
+                        "questions": [
+                            {
+                                "question": "How would you use quiz mistakes to adjust your study plan?",
+                                "expected_answer": "Identify weak areas, prioritize them, and choose targeted practice or review.",
+                                "assessment_focus": "Applying reflection to planning"
+                            },
+                            {
+                                "question": "Describe a simple rubric you could use to judge whether you truly understand a topic.",
+                                "expected_answer": "A rubric including explanation accuracy, example use, problem solving, and ability to teach it.",
+                                "assessment_focus": "Structured self-evaluation"
+                            }
+                        ]
+                    },
+                    {
+                        "level": "advanced",
+                        "questions": [
+                            {
+                                "question": "How would you distinguish between fluency illusion and real mastery when studying alone?",
+                                "expected_answer": "Use retrieval, transfer tasks, and performance evidence instead of familiarity alone.",
+                                "assessment_focus": "Advanced metacognitive judgment"
+                            },
+                            {
+                                "question": "Design a process for periodically recalibrating your self-assessment accuracy over a multi-week course.",
+                                "expected_answer": "Compare predictions with results, analyze mismatches, and refine criteria regularly.",
+                                "assessment_focus": "Long-horizon self-monitoring strategy"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Time Management",
+            "is_gap": true,
+            "required_level": "intermediate",
+            "current_level": "unlearned",
+            "reason": "No evidence of time management skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": false,
+            "requires_diagnostic_assessment": false,
+            "assessment_reason": null,
+            "diagnostic_assessment": null
+        },
+        {
+            "name": "Research Skills",
+            "is_gap": true,
+            "required_level": "beginner",
+            "current_level": "unlearned",
+            "reason": "No evidence of research skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": false,
+            "requires_diagnostic_assessment": false,
+            "assessment_reason": null,
+            "diagnostic_assessment": null
+        },
+        {
+            "name": "Learning Strategy Development",
+            "is_gap": true,
+            "required_level": "advanced",
+            "current_level": "unlearned",
+            "reason": "No evidence of strategy development skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": false,
+            "requires_diagnostic_assessment": false,
+            "assessment_reason": null,
+            "diagnostic_assessment": null
+        },
+        {
+            "name": "Motivation and Self-discipline",
+            "is_gap": true,
+            "required_level": "intermediate",
+            "current_level": "unlearned",
+            "reason": "No evidence of motivation skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": false,
+            "requires_diagnostic_assessment": false,
+            "assessment_reason": null,
+            "diagnostic_assessment": null
+        },
+        {
+            "name": "Progress Tracking",
+            "is_gap": true,
+            "required_level": "beginner",
+            "current_level": "unlearned",
+            "reason": "No evidence of progress tracking skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": false,
+            "requires_diagnostic_assessment": false,
+            "assessment_reason": null,
+            "diagnostic_assessment": null
+        },
+        {
+            "name": "Adaptability",
+            "is_gap": true,
+            "required_level": "intermediate",
+            "current_level": "unlearned",
+            "reason": "No evidence of adaptability skills.",
+            "level_confidence": "high",
+            "mentioned_in_learner_information": false,
+            "requires_diagnostic_assessment": false,
+            "assessment_reason": null,
+            "diagnostic_assessment": null
+        }
+    ]
+}

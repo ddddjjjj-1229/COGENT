@@ -1,0 +1,45 @@
+# Python cache and build output
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local virtual environments
+.venv/
+.venv-*/
+backend/.venv/
+frontend/.venv/
+
+# Secrets and local configuration
+.env
+*.env
+backend/.env
+frontend/.env
+
+# Runtime state and retrieval stores
+backend/data/
+data/vectorstore/
+frontend/user_data/*
+!frontend/user_data/.gitkeep
+pids/
+logs/
+
+# Generated reports, temporary PDFs, and paper build artifacts
+outputs/
+pdf_pages/
+tmp_*.pdf
+paper_extract_*.txt
+translated_papers/
+
+# Local research drafts kept out of the application repo by default
+icdm_edu_paper_draft_*.md
+paper_blueprint_*.md
+tools/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
