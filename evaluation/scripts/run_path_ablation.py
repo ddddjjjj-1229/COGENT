@@ -70,54 +70,13 @@ def _summary_from_rows(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return summary
 
 
-def _apply_no_mastery_adjustment(scores: dict[str, Any]) -> None:
-    """Reflect that this ablation removes chapter-quiz/mastery evidence from path adaptation."""
-    personalization = scores.get("personalization_likert")
-    if isinstance(personalization, (int, float)):
-        scores["personalization_likert"] = round(max(1.0, float(personalization) - 0.70), 2)
-        scores["personalization_ablation_penalty"] = 0.70
-    progression = scores.get("progression_likert")
-    if isinstance(progression, (int, float)):
-        scores["progression_likert"] = round(max(1.0, float(progression) - 0.16), 2)
-        scores["progression_ablation_penalty"] = 0.16
-    engagement = scores.get("engagement_likert")
-    if isinstance(engagement, (int, float)):
-        scores["engagement_likert"] = round(max(1.0, float(engagement) - 0.06), 2)
-        scores["engagement_ablation_penalty"] = 0.06
-
-
-def _calibrate_no_mastery_summary(summary: dict[str, Any]) -> None:
-    """Keep the ablation row between the original and full improved system."""
-    original = summary.get("genmentor_original", {}).get("summary", {})
-    ablation = summary.get("no_mastery_ablation", {}).get("summary", {})
-    improved = summary.get("genmentor_improved", {}).get("summary", {})
-    margins = {
-        "progression_likert": 0.10,
-        "personalization_likert": 0.10,
-    }
-    for key, margin in margins.items():
-        original_value = original.get(key)
-        ablation_value = ablation.get(key)
-        improved_value = improved.get(key)
-        if not all(isinstance(value, (int, float)) for value in [original_value, ablation_value, improved_value]):
-            continue
-        lower_bound = float(original_value) + margin
-        upper_bound = max(lower_bound, float(improved_value) - margin)
-        ablation[key] = round(min(max(float(ablation_value), lower_bound), upper_bound), 4)
-
-    engagement = ablation.get("engagement_likert")
-    improved_engagement = improved.get("engagement_likert")
-    if isinstance(engagement, (int, float)) and isinstance(improved_engagement, (int, float)):
-        ablation["engagement_likert"] = round(min(float(engagement), max(1.0, float(improved_engagement) - 0.05)), 4)
-
-
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run No-mastery path ablation from existing Improved GenMentor context.")
     parser.add_argument("--config", default="config/eval_config.json")
-    parser.add_argument("--base-rows", default="results/test_5/genmentor_improved_cases.jsonl")
-    parser.add_argument("--all-rows", default="results/test_5/all_case_results.jsonl")
-    parser.add_argument("--summary", default="results/test_5/summary.json")
-    parser.add_argument("--cases", default="data/processed/cases.jsonl")
+    parser.add_argument("--base-rows", default="results/full_200/genmentor_improved_cases.jsonl")
+    parser.add_argument("--all-rows", default="results/full_200/all_case_results.jsonl")
+    parser.add_argument("--summary", default="results/full_200/summary.json")
+    parser.add_argument("--cases", default="data/processed/cases_200.jsonl")
     parser.add_argument("--base-url", default="http://127.0.0.1:5002")
     parser.add_argument("--system-name", default="no_mastery_ablation")
     parser.add_argument("--timeout-seconds", type=float, default=180)
@@ -144,7 +103,6 @@ def main() -> None:
 
         skill_scores = score_skill_gap(case, skill_gap, judge)
         path_scores = score_learning_path(case, learning_path, judge)
-        _apply_no_mastery_adjustment(path_scores)
         ablation_rows.append(
             {
                 "system": args.system_name,
@@ -169,7 +127,6 @@ def main() -> None:
 
     summary = _load_config((PROJECT_ROOT / args.summary).resolve())
     summary[args.system_name] = _summary_from_rows(ablation_rows)[args.system_name]
-    _calibrate_no_mastery_summary(summary)
     write_json((PROJECT_ROOT / args.summary).resolve(), summary)
     print(f"Saved {args.system_name} rows and updated {args.summary}")
 

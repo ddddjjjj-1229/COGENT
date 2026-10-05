@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import copy
 import csv
 import json
 from pathlib import Path
@@ -50,104 +49,11 @@ def _rows(summary: dict[str, Any], systems: list[str], columns: list[tuple[str, 
     return rows
 
 
-def _calibrate_learning_path_table(summary: dict[str, Any]) -> dict[str, Any]:
-    calibrated = copy.deepcopy(summary)
-    dirprompt = _summary(calibrated, "dirprompt")
-    original = _summary(calibrated, "genmentor_original")
-    no_mastery = _summary(calibrated, "no_mastery_ablation")
-    improved = _summary(calibrated, "genmentor_improved")
-
-    dir_caps = {
-        "progression_likert": 0.55,
-        "engagement_likert": 0.55,
-        "personalization_likert": 0.75,
-    }
-    no_mastery_margins = {
-        "progression_likert": 0.10,
-        "engagement_likert": 0.05,
-        "personalization_likert": 0.22,
-    }
-    improved_margins = {
-        "progression_likert": 0.22,
-        "engagement_likert": 0.10,
-        "personalization_likert": 0.55,
-    }
-
-    for key in ["progression_likert", "engagement_likert", "personalization_likert"]:
-        original_value = original.get(key)
-        if not isinstance(original_value, (int, float)):
-            continue
-
-        if isinstance(dirprompt.get(key), (int, float)):
-            dirprompt[key] = round(min(float(dirprompt[key]), max(1.0, float(original_value) - dir_caps[key])), 4)
-
-        improved_floor = min(5.0, float(original_value) + improved_margins[key])
-        if isinstance(improved.get(key), (int, float)):
-            improved[key] = round(max(float(improved[key]), improved_floor), 4)
-
-        if isinstance(no_mastery.get(key), (int, float)) and isinstance(improved.get(key), (int, float)):
-            no_mastery_floor = min(5.0, float(original_value) + no_mastery_margins[key])
-            no_mastery_ceiling = max(no_mastery_floor, float(improved[key]) - 0.10)
-            no_mastery[key] = round(min(max(float(no_mastery[key]), no_mastery_floor), no_mastery_ceiling), 4)
-
-        if isinstance(no_mastery.get(key), (int, float)) and isinstance(improved.get(key), (int, float)):
-            improved[key] = round(max(float(improved[key]), min(5.0, float(no_mastery[key]) + 0.10)), 4)
-
-    return calibrated
-
-
-def _coverage_aware_precision(data: dict[str, Any]) -> float | None:
+def _skill_precision(data: dict[str, Any]) -> float | None:
     precision = data.get("goal_skill_precision")
-    recall = data.get("goal_skill_recall")
-    if isinstance(precision, (int, float)) and isinstance(recall, (int, float)):
-        return round(float(precision) * (0.5 + 0.5 * float(recall)), 4)
     if isinstance(precision, (int, float)):
         return round(float(precision), 4)
     return None
-
-
-def _skill_mapping_values(summary: dict[str, Any], system: str) -> tuple[float | None, float | None]:
-    if system not in summary:
-        return None, None
-    data = _summary(summary, system)
-    recall = data.get("goal_skill_recall", data.get("gap_recall"))
-    precision = _coverage_aware_precision(data)
-    return (
-        round(float(recall), 4) if isinstance(recall, (int, float)) else None,
-        round(float(precision), 4) if isinstance(precision, (int, float)) else None,
-    )
-
-
-def _calibrated_skill_mapping_rows(summary: dict[str, Any], systems: list[str]) -> list[list[str]]:
-    values = {system: _skill_mapping_values(summary, system) for system in systems}
-
-    dir_recall, dir_precision = values.get("dirprompt", (None, None))
-    original_recall, original_precision = values.get("genmentor_original", (None, None))
-    improved_recall, improved_precision = values.get("genmentor_improved", (None, None))
-
-    if isinstance(dir_recall, float) and isinstance(dir_precision, float):
-        values["dirprompt"] = (max(dir_recall, 0.20), max(dir_precision, 0.30))
-        dir_recall, dir_precision = values["dirprompt"]
-
-    if all(isinstance(value, float) for value in [dir_recall, original_recall, improved_recall]):
-        original_recall = max(original_recall, dir_recall + 0.40, 0.62)
-        improved_recall = max(improved_recall, original_recall + 0.20, 0.80)
-        values["genmentor_original"] = (min(original_recall, 0.78), original_precision)
-        values["genmentor_improved"] = (min(improved_recall, 0.90), improved_precision)
-
-    if all(isinstance(value, float) for value in [dir_precision, original_precision, improved_precision]):
-        original_precision = max(original_precision, dir_precision + 0.44, 0.78)
-        improved_precision = max(improved_precision, original_precision + 0.08, 0.84)
-        recall_value = values["genmentor_original"][0]
-        values["genmentor_original"] = (recall_value, min(original_precision, 0.88))
-        recall_value = values["genmentor_improved"][0]
-        values["genmentor_improved"] = (recall_value, min(improved_precision, 0.94))
-
-    rows: list[list[str]] = []
-    for system in systems:
-        recall, precision = values.get(system, (None, None))
-        rows.append([SYSTEM_LABELS.get(system, system), _fmt(recall), _fmt(precision)])
-    return rows
 
 
 def _skill_mapping_rows(summary: dict[str, Any], systems: list[str]) -> list[list[str]]:
@@ -160,7 +66,7 @@ def _skill_mapping_rows(summary: dict[str, Any], systems: list[str]) -> list[lis
             [
                 SYSTEM_LABELS.get(system, system),
                 _fmt(data.get("goal_skill_recall", data.get("gap_recall"))),
-                _fmt(_coverage_aware_precision(data)),
+                _fmt(_skill_precision(data)),
             ]
         )
     return rows
@@ -185,7 +91,6 @@ def _write_csv(path: Path, headers: list[str], rows: list[list[str]]) -> None:
 
 def export_main_tables(summary_path: Path, output_dir: Path) -> None:
     summary = _load_json(summary_path)
-    path_summary = _calibrate_learning_path_table(summary)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     path_columns = [
@@ -196,8 +101,8 @@ def export_main_tables(summary_path: Path, output_dir: Path) -> None:
 
     skill_headers = ["Method", "Recall", "Precision"]
     path_headers = ["Method", *[label for _, label in path_columns]]
-    skill_rows = _calibrated_skill_mapping_rows(summary, SKILL_ORDER)
-    path_rows = _rows(path_summary, MAIN_ORDER, path_columns)
+    skill_rows = _skill_mapping_rows(summary, SKILL_ORDER)
+    path_rows = _rows(summary, MAIN_ORDER, path_columns)
 
     skill_md = "# Table 1: Evaluation results on goal-to-skill mapping\n\n" + _markdown_table(skill_headers, skill_rows) + "\n"
     path_md = "# Table 2: Evaluation results on learning path\n\n" + _markdown_table(path_headers, path_rows) + "\n"
@@ -249,4 +154,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

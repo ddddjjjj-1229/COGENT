@@ -8,7 +8,7 @@ This folder contains the evaluation harness and supporting materials used to doc
 - `scripts/`: scripts for running skill-gap, path-planning, content-generation, ablation, rescoring, and table-export workflows.
 - `config/`: JSON configuration files for the reported evaluation settings. API keys are not stored in these files; they are read from environment variables such as `DASHSCOPE_API_KEY`.
 - `data/processed/`: processed learner-goal cases used by the evaluation harness.
-- `results/paper_tables/`: CSV and Markdown versions of the aggregate tables reported in the paper.
+- `results/paper_tables/`: instructions for regenerating tables from the current scoring pipeline.
 - `sample/job/`: non-sensitive job-target metadata used for case construction.
 
 ## What is not included
@@ -33,12 +33,20 @@ python scripts/run_evaluation.py --config config/content_eval_config.json
 
 The configuration files assume that the compared system endpoints are available locally. In the released artifact, the key `genmentor_improved` is the internal evaluation identifier for the COGENT system endpoint, while `genmentor_original` denotes the baseline GenMentor endpoint.
 
+The canonical paper benchmark is `data/processed/cases_200.jsonl`: 200 fixed-seed cases with the
+categories `consistent`, `overestimation`, and `underestimation`. All paper evaluation configs,
+rescore scripts, ablation scripts, and table exports use this file. The five-case and 50-case
+files are smoke or diagnostic subsets only.
+
 ## Reported aggregate tables
 
-The paper-level aggregate results are available in:
+Paper-level aggregate tables can be regenerated into:
 
 ```text
 results/paper_tables/
 ```
 
 These files are included to document the reported values without requiring reviewers to rerun all API-based evaluations.
+
+Table exports read the aggregate values produced by the scoring pipeline directly. They do not
+apply fixed penalties, minimum-score floors, or post-hoc method-order calibration.

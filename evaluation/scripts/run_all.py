@@ -36,19 +36,19 @@ def main() -> None:
             PYTHON,
             "scripts/rescore_content_results.py",
             "--input",
-            "results/test_5/all_content_case_results.jsonl",
+            "results/full_200/all_content_case_results.jsonl",
             "--output",
-            "results/test_5/content_summary.json",
+            "results/full_200/content_summary.json",
             "--cases",
-            "data/processed/cases.jsonl",
+            "data/processed/cases_200.jsonl",
             "--write-rows",
-            "results/test_5/all_content_case_results.jsonl",
+            "results/full_200/all_content_case_results.jsonl",
         ]
     )
 
     if not args.skip_tables:
-        run_step([PYTHON, "scripts/export_paper_tables.py", "--summary", "results/test_5/summary.json", "--mode", "main"])
-        run_step([PYTHON, "scripts/export_paper_tables.py", "--summary", "results/test_5/content_summary.json", "--mode", "content"])
+        run_step([PYTHON, "scripts/export_paper_tables.py", "--summary", "results/full_200/summary.json", "--mode", "main"])
+        run_step([PYTHON, "scripts/export_paper_tables.py", "--summary", "results/full_200/content_summary.json", "--mode", "content"])
 
     print("\nAll evaluation steps completed.", flush=True)
 

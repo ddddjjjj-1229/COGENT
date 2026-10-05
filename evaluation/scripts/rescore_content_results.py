@@ -24,38 +24,6 @@ CONTENT_KEYS = [
 ]
 
 
-NO_TOT_PENALTIES = {
-    "content_goal_relevance": 0.45,
-    "content_quality": 0.55,
-    "content_engagement": 0.45,
-    "content_personalization": 0.65,
-}
-
-
-CONTENT_TABLE_KEYS = [
-    "content_goal_relevance_likert",
-    "content_quality_likert",
-    "content_engagement_likert",
-    "content_personalization_likert",
-]
-
-
-CONTENT_TABLE_MARGINS = {
-    "content_goal_relevance_likert": 0.12,
-    "content_quality_likert": 0.18,
-    "content_engagement_likert": 0.14,
-    "content_personalization_likert": 0.12,
-}
-
-
-CONTENT_TABLE_ORDER = [
-    "dirprompt",
-    "genmentor_original",
-    "no_tot_ablation",
-    "genmentor_improved",
-]
-
-
 def _aggregate(records: list[dict[str, Any]]) -> dict[str, Any]:
     if not records:
         return {}
@@ -72,39 +40,14 @@ def _aggregate(records: list[dict[str, Any]]) -> dict[str, Any]:
 
 def _restore_existing_judge_scores(row: dict[str, Any], rescored: dict[str, Any]) -> None:
     for key in CONTENT_KEYS:
-        previous = row.get(f"{key}_judge_likert", row.get(f"{key}_likert"))
+        # Reuse only an explicitly recorded per-case judge score. Never treat a
+        # previous blended total as a fresh judge score during rescoring.
+        previous = row.get(f"{key}_judge_likert")
         objective = rescored.get(f"{key}_objective_likert")
         if isinstance(previous, (int, float)):
             rescored[f"{key}_judge_likert"] = previous
             rescored[f"{key}_likert"] = _blend_likert(float(objective), float(previous))
-            rescored[f"{key}_rationale"] = "Blended objective content score with existing LLM judge score."
-
-
-def _apply_content_ablation_adjustment(row: dict[str, Any], rescored: dict[str, Any]) -> None:
-    if row.get("system") != "no_tot_ablation":
-        return
-    for key, penalty in NO_TOT_PENALTIES.items():
-        value = rescored.get(f"{key}_likert")
-        if isinstance(value, (int, float)):
-            rescored[f"{key}_likert"] = round(max(1.0, float(value) - penalty), 2)
-            rescored[f"{key}_ablation_penalty"] = penalty
-
-
-def _calibrate_content_table_order(summary: dict[str, Any]) -> None:
-    """Keep the paper table aligned with the intended baseline/ablation order."""
-    for key in CONTENT_TABLE_KEYS:
-        margin = CONTENT_TABLE_MARGINS[key]
-        previous_value: float | None = None
-        for system_name in CONTENT_TABLE_ORDER:
-            system_summary = summary.get(system_name, {}).get("summary", {})
-            value = system_summary.get(key)
-            if not isinstance(value, (int, float)):
-                continue
-            if previous_value is not None:
-                value = max(float(value), previous_value + margin)
-                value = min(value, 5.0)
-                system_summary[key] = round(value, 4)
-            previous_value = float(system_summary[key])
+            rescored[f"{key}_rationale"] = "Blended objective content score with the recorded per-case LLM judge score."
 
 
 def recompute_content_summary(
@@ -130,7 +73,6 @@ def recompute_content_summary(
             judge=None,
         )
         _restore_existing_judge_scores(row, rescored)
-        _apply_content_ablation_adjustment(row, rescored)
         rescored_row = dict(row)
         rescored_row.update(rescored)
         rescored_rows.append(rescored_row)
@@ -147,7 +89,6 @@ def recompute_content_summary(
             },
         }
 
-    _calibrate_content_table_order(summary)
     write_json(output_path, summary)
     if write_rows_path is not None:
         write_jsonl(write_rows_path, rescored_rows)
@@ -156,9 +97,9 @@ def recompute_content_summary(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Recompute content_summary.json from existing content case results.")
-    parser.add_argument("--input", default="results/test_5/all_content_case_results.jsonl")
-    parser.add_argument("--output", default="results/test_5/content_summary.json")
-    parser.add_argument("--cases", default="data/processed/cases.jsonl")
+    parser.add_argument("--input", default="results/full_200/all_content_case_results.jsonl")
+    parser.add_argument("--output", default="results/full_200/content_summary.json")
+    parser.add_argument("--cases", default="data/processed/cases_200.jsonl")
     parser.add_argument("--write-rows", default="")
     args = parser.parse_args()
 

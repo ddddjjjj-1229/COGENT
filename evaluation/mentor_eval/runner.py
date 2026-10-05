@@ -394,7 +394,7 @@ def _build_reference_adapter(config: Dict[str, Any], llm: OpenAICompatibleClient
 
 def _load_reference_context_cache(config: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     content_spec = config.get("content_eval", {})
-    cache_path = content_spec.get("reference_cache_file", "results/test_5/genmentor_improved_cases.jsonl")
+    cache_path = content_spec.get("reference_cache_file", "results/full_200/genmentor_improved_cases.jsonl")
     path = Path(cache_path)
     if not path.is_absolute():
         path = Path.cwd() / path

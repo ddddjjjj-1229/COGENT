@@ -8,6 +8,20 @@ from .data_io import write_jsonl
 from .types import JobRecord, LearnerCase, ResumeRecord
 
 
+CATEGORY_ALIASES = {
+    "honest": "consistent",
+    "over_claimed": "overestimation",
+    "under_stated": "underestimation",
+    "vague": "underestimation",
+    "gap_blind": "overestimation",
+}
+
+
+def _normalize_category(category: str) -> str:
+    value = str(category).strip().lower()
+    return CATEGORY_ALIASES.get(value, value)
+
+
 def _dedupe(items: Sequence[str]) -> List[str]:
     seen = set()
     result: List[str] = []
@@ -84,6 +98,7 @@ def _stratified_sample_by_category(
 
 
 def _select_skill_gap(job: JobRecord, resume: ResumeRecord, skill_pool: Sequence[str], category: str, rng: random.Random) -> Dict[str, Any]:
+    category = _normalize_category(category)
     required = _dedupe(job.required_skills)
     prerequisites = _dedupe(job.prerequisite_skills)
     claimed = _dedupe(resume.claimed_skills)
@@ -105,13 +120,13 @@ def _select_skill_gap(job: JobRecord, resume: ResumeRecord, skill_pool: Sequence
         mastered_required = _pick_distinct(rng, required, mastered_count)
         background_actual = [skill for skill in actual if skill.lower() not in {item.lower() for item in required}]
         actual = _dedupe(mastered_required + background_actual[:3])
-        if category == "honest":
+        if category == "consistent":
             claimed = list(actual)
 
     actual_set = {item.lower() for item in actual}
     claimed_set = {item.lower() for item in claimed}
 
-    if category == "honest":
+    if category == "consistent":
         true_gap = [skill for skill in required if skill.lower() not in actual_set]
         return {
             "claimed_skills": claimed,
@@ -122,7 +137,7 @@ def _select_skill_gap(job: JobRecord, resume: ResumeRecord, skill_pool: Sequence
             "foundation_gaps": [],
         }
 
-    if category == "over_claimed":
+    if category == "overestimation":
         false_skill = next((skill for skill in required if skill.lower() not in actual_set), None)
         if false_skill is None:
             false_skill = next((skill for skill in skill_pool if skill.lower() not in actual_set), "advanced reporting")
@@ -140,7 +155,7 @@ def _select_skill_gap(job: JobRecord, resume: ResumeRecord, skill_pool: Sequence
             "foundation_gaps": [],
         }
 
-    if category == "under_stated":
+    if category == "underestimation":
         hidden_skill = next((skill for skill in actual if skill.lower() not in claimed_set), None)
         if hidden_skill is None:
             hidden_skill = next((skill for skill in required if skill.lower() not in claimed_set), None)
@@ -344,7 +359,7 @@ def build_cases(
     rng.shuffle(sampled_resumes)
 
     # Build learner-condition order from the configured distribution.
-    category_counts = _target_counts(total, distribution or {"honest": 1.0})
+    category_counts = _target_counts(total, distribution or {"consistent": 1.0})
     category_order: List[str] = []
     for label, cnt in category_counts.items():
         category_order.extend([label] * cnt)
@@ -353,6 +368,7 @@ def build_cases(
     skill_pool = _collect_skill_pool(sampled_jobs, sampled_resumes)
     cases: List[LearnerCase] = []
     for index, (job, resume, category_label) in enumerate(zip(sampled_jobs, sampled_resumes, category_order), start=1):
+        category_label = _normalize_category(category_label)
         gap_bundle = _select_skill_gap(job, resume, skill_pool, category_label, rng)
         trace = _simulate_trace(category_label, gap_bundle, job, resume, rng)
         learning_goal = f"{job.title}: {job.description}".strip()
@@ -403,11 +419,12 @@ def _clamp(value: float, low: float = 0.0, high: float = 1.0) -> float:
 
 
 def _category_family(category: str) -> str:
-    if category in {"gap_blind", "over_claimed"}:
-        return "over_claimed"
-    if category in {"under_stated", "vague"}:
-        return "vague"
-    return "honest"
+    category = _normalize_category(category)
+    if category == "overestimation":
+        return "overestimation"
+    if category == "underestimation":
+        return "underestimation"
+    return "consistent"
 
 
 def _simulate_answer_for_skill(
@@ -423,15 +440,15 @@ def _simulate_answer_for_skill(
 
     if has_actual:
         base = 0.92
-        if family == "vague":
+        if family == "underestimation":
             base = 0.84
-        elif family == "over_claimed":
+        elif family == "overestimation":
             base = 0.78
     else:
         base = 0.08
         if has_claimed:
             base = 0.2
-            if family == "over_claimed":
+            if family == "overestimation":
                 base = 0.15
 
     correct = rng.random() < base
@@ -439,7 +456,7 @@ def _simulate_answer_for_skill(
         confidence = rng.uniform(0.7, 0.95)
         response = f"Provides a clear, correct explanation of {skill}."
     else:
-        if has_claimed and family == "over_claimed":
+        if has_claimed and family == "overestimation":
             confidence = rng.uniform(0.6, 0.85)
             response = f"Gives a confident but incorrect answer about {skill}."
         else:

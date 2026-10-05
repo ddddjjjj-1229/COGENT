@@ -2,9 +2,9 @@
     "seed":  42,
     "sample_size":  200,
     "category_distribution":  {
-                                  "honest":  0.34,
-                                  "over_claimed":  0.33,
-                                  "under_stated":  0.33
+                                  "consistent":  0.34,
+                                  "overestimation":  0.33,
+                                  "underestimation":  0.33
                               },
     "input_files":  {
                         "jobs":  "sample/job/ai_jobs_market_2025_2026.csv",
@@ -13,8 +13,8 @@
     "fixed_target_jobs_file":  "config/data_mining_targets.json",
     "notes":  "Learning-content-only benchmark following the original GenMentor Figure 4 setup with 10 Data Mining-related targets.",
     "evaluation_mode":  "content",
-    "output_dir":  "results/test_5",
-    "processed_cases_file":  "data/processed/cases.jsonl",
+    "output_dir":  "results/full_200",
+    "processed_cases_file":  "data/processed/cases_200.jsonl",
     "content_eval":  {
                          "reference_system":  "genmentor_improved",
                          "max_cases":  200
