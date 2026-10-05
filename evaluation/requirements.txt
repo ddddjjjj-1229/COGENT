@@ -1,2 +1,0 @@
-# The evaluation harness uses the Python standard library for file IO and HTTP calls.
-# Running LLM-based evaluations requires API credentials configured through environment variables.
